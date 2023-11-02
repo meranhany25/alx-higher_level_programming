@@ -1,3 +1,2 @@
-#!/usr/bin/python3
-import sys
-sys.write
+ #!/usr/bin/python3
+ import easy_print

@@ -8,4 +8,5 @@ class LockedClass:
     for anything but attributes called 'first_name'
     """
 
+
 ___slots___ = ["first_name"]

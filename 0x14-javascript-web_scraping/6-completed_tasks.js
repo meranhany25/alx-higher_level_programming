@@ -1,23 +1,22 @@
 #!/usr/bin/node
-
-const url = 'https://jsonplaceholder.typicode.com/todos';
 const request = require('request');
-const userCompleted = {};
-
-request(url, (err, res, body) => {
+const url = process.argv[2];
+const dict = {};
+request(url, function (err, response, body) {
   if (err) {
     console.log(err);
   } else {
-    const todos = JSON.parse(body);
-    todos.forEach(todo => {
-      if (todo.completed === true) {
-        if (userCompleted[todo.userId] === undefined) {
-          userCompleted[todo.userId] = 1;
+    const json = JSON.parse(body);
+    for (const task of json) {
+      if (task.completed === true) {
+        if (dict[task.userId] === undefined) {
+          dict[task.userId] = 1;
         } else {
-          userCompleted[todo.userId] += 1;
+          dict[task.userId]++;
         }
       }
-    });
-    console.log(userCompleted);
+    }
+    console.log(dict);
   }
-});
+}
+);

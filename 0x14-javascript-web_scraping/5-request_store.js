@@ -1,16 +1,17 @@
 #!/usr/bin/node
-const request = require('request');
-const fs = require('fs');
+
 const url = process.argv[2];
 const path = process.argv[3];
+// const format = 'utf8'
 
-request(url, function (err, response, body) {
-    if (err) {
-        console.log(err);
-    } else {
-        fs.writeFile(path, body, 'utf8', function (err) {
-            if (err) { console.log(err); }
-        });
-    }
-}
-);
+const request = require('request');
+const fs = require('fs');
+const writeStream = fs.createWriteStream(path);
+
+request(url, (err, res, body) => {
+  if (err) {
+    console.log(err);
+  }
+  writeStream.write(body);
+  writeStream.end();
+});
